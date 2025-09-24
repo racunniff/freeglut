@@ -1,0 +1,186 @@
+#Makefile for Freeglut and Cygwin
+S=src/
+B=build/
+I=include/
+sources= \
+	$(S)fg_callbacks.c \
+	$(S)fg_cursor.c \
+	$(S)fg_display.c \
+	$(S)fg_ext.c \
+	$(S)fg_font.c \
+	$(S)fg_font_data.c \
+	$(S)fg_gamemode.c \
+	$(S)fg_geometry.c \
+	$(S)fg_gl2.c \
+	$(S)fg_init.c \
+	$(S)fg_input_devices.c \
+	$(S)fg_joystick.c \
+	$(S)fg_main.c \
+	$(S)fg_menu.c \
+	$(S)fg_misc.c \
+	$(S)fg_overlay.c \
+	$(S)fg_spaceball.c \
+	$(S)fg_state.c \
+	$(S)fg_stroke_mono_roman.c \
+	$(S)fg_stroke_roman.c \
+	$(S)fg_structure.c \
+	$(S)fg_teapot.c \
+	$(S)fg_videoresize.c \
+	$(S)fg_window.c \
+	$(S)mswin/fg_cmap_mswin.c \
+	$(S)mswin/fg_cursor_mswin.c \
+	$(S)mswin/fg_display_mswin.c \
+	$(S)mswin/fg_ext_mswin.c \
+	$(S)mswin/fg_gamemode_mswin.c \
+	$(S)mswin/fg_init_mswin.c \
+	$(S)mswin/fg_input_devices_mswin.c \
+	$(S)mswin/fg_joystick_mswin.c \
+	$(S)mswin/fg_main_mswin.c \
+	$(S)mswin/fg_menu_mswin.c \
+	$(S)mswin/fg_spaceball_mswin.c \
+	$(S)mswin/fg_state_mswin.c \
+	$(S)mswin/fg_structure_mswin.c \
+	$(S)mswin/fg_window_mswin.c \
+	$(S)util/xparsegeometry_repl.c
+
+objs= \
+	$(B)fg_callbacks.o \
+	$(B)fg_cursor.o \
+	$(B)fg_display.o \
+	$(B)fg_ext.o \
+	$(B)fg_font.o \
+	$(B)fg_font_data.o \
+	$(B)fg_gamemode.o \
+	$(B)fg_geometry.o \
+	$(B)fg_gl2.o \
+	$(B)fg_init.o \
+	$(B)fg_input_devices.o \
+	$(B)fg_joystick.o \
+	$(B)fg_main.o \
+	$(B)fg_menu.o \
+	$(B)fg_misc.o \
+	$(B)fg_overlay.o \
+	$(B)fg_spaceball.o \
+	$(B)fg_state.o \
+	$(B)fg_stroke_mono_roman.o \
+	$(B)fg_stroke_roman.o \
+	$(B)fg_structure.o \
+	$(B)fg_teapot.o \
+	$(B)fg_videoresize.o \
+	$(B)fg_window.o \
+	$(B)fg_cmap_mswin.o \
+	$(B)fg_cursor_mswin.o \
+	$(B)fg_display_mswin.o \
+	$(B)fg_ext_mswin.o \
+	$(B)fg_gamemode_mswin.o \
+	$(B)fg_init_mswin.o \
+	$(B)fg_input_devices_mswin.o \
+	$(B)fg_joystick_mswin.o \
+	$(B)fg_main_mswin.o \
+	$(B)fg_menu_mswin.o \
+	$(B)fg_spaceball_mswin.o \
+	$(B)fg_state_mswin.o \
+	$(B)fg_structure_mswin.o \
+	$(B)fg_window_mswin.o \
+	$(B)xparsegeometry_repl.o
+
+HDRS=$(S)mswin/fg_internal_mswin.h
+
+libname=freeglut
+
+CC=clang
+CFLAGS=-O2 -DCYGWIN -DTARGET_HOST_MS_WINDOWS -DX_DISPLAY_MISSING -DFREEGLUT_STATIC -I$(S) -I$(I)
+LDFLAGS=-lopengl32 -lgdi32 -lwinmm
+
+.phony: all
+all: build $(B)lib$(libname).a
+
+.phony: build
+build:
+	if [ ! -d build ]; then mkdir build; fi
+
+$(B)lib$(libname).a: $(objs)
+	ar cr $@ $(objs)
+	ranlib $@
+
+$(B)fg_callbacks.o: $(S)fg_callbacks.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_cursor.o: $(S)fg_cursor.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_display.o: $(S)fg_display.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_ext.o: $(S)fg_ext.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_font.o: $(S)fg_font.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_font_data.o: $(S)fg_font_data.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_gamemode.o: $(S)fg_gamemode.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_geometry.o: $(S)fg_geometry.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_gl2.o: $(S)fg_gl2.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_init.o: $(S)fg_init.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_input_devices.o: $(S)fg_input_devices.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_joystick.o: $(S)fg_joystick.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_main.o: $(S)fg_main.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_menu.o: $(S)fg_menu.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_misc.o: $(S)fg_misc.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_overlay.o: $(S)fg_overlay.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_spaceball.o: $(S)fg_spaceball.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_state.o: $(S)fg_state.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_stroke_mono_roman.o: $(S)fg_stroke_mono_roman.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_stroke_roman.o: $(S)fg_stroke_roman.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_structure.o: $(S)fg_structure.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_teapot.o: $(S)fg_teapot.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_videoresize.o: $(S)fg_videoresize.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_window.o: $(S)fg_window.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_cmap_mswin.o: $(S)mswin/fg_cmap_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_cursor_mswin.o: $(S)mswin/fg_cursor_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_display_mswin.o: $(S)mswin/fg_display_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_ext_mswin.o: $(S)mswin/fg_ext_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_gamemode_mswin.o: $(S)mswin/fg_gamemode_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_init_mswin.o: $(S)mswin/fg_init_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_input_devices_mswin.o: $(S)mswin/fg_input_devices_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_joystick_mswin.o: $(S)mswin/fg_joystick_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_main_mswin.o: $(S)mswin/fg_main_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_menu_mswin.o: $(S)mswin/fg_menu_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_spaceball_mswin.o: $(S)mswin/fg_spaceball_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_state_mswin.o: $(S)mswin/fg_state_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_structure_mswin.o: $(S)mswin/fg_structure_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)fg_window_mswin.o: $(S)mswin/fg_window_mswin.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+$(B)xparsegeometry_repl.o: $(S)util/xparsegeometry_repl.c $(HDRS)
+	$(CC) -c $(CFLAGS) $< -o $@
+
+clean:
+	rm -f *.o $(libname).dll $(libname).def lib$(libname)dll.a lib$(libname).a
