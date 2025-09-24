@@ -40,7 +40,7 @@
 #include <stdlib.h>
 #include "../fg_internal.h"
 
-#if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0501)
+#if defined(CYGWIN) || (defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0501))
 
 enum {
     SPNAV_EVENT_ANY,

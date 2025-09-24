@@ -25,9 +25,14 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#if defined(CYGWIN)
+#include <windows.h>
+#include <tchar.h>
+#define _sntprintf snprintf
+#endif
+
 #include <GL/freeglut.h>
 #include "../fg_internal.h"
-
 
 #if !defined(_WIN32_WCE)
 #    include <windows.h>

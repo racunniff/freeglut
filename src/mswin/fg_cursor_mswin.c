@@ -25,10 +25,13 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <windows.h>
 #include <GL/freeglut.h>
 #include "../fg_internal.h"
 
-
+#if !defined(GCL_HCURSOR)
+    #define GCL_HCURSOR GCLP_HCURSOR
+#endif
 
 void fgPlatformSetCursor ( SFG_Window *window, int cursorID )
 {

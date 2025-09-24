@@ -31,6 +31,7 @@ native
 *.exe
 *.dll
 *.a
+build
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake

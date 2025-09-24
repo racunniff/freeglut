@@ -29,6 +29,9 @@
 #include <GL/freeglut.h>
 #include "../fg_internal.h"
 
+#if defined(CYGWIN)
+#define _tcscmp strcmp
+#endif
 
 /* The following include file is available from SGI but is not standard:
  *   #include <GL/wglext.h>
