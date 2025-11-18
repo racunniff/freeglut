@@ -603,13 +603,14 @@ IF(WIN32)
         # need to set machine:x64 for linker, at least for VC10, and
         # doesn't hurt for older compilers:
         # http://public.kitware.com/Bug/view.php?id=11240#c22768
-        IF (CMAKE_CL_64)
-            IF ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "ARM64")
-                SET_TARGET_PROPERTIES(freeglut_static PROPERTIES STATIC_LIBRARY_FLAGS "/machine:ARM64")
-            ELSE()
-                SET_TARGET_PROPERTIES(freeglut_static PROPERTIES STATIC_LIBRARY_FLAGS "/machine:x64")
-            ENDIF()
-        ENDIF()
+        # Uggh. This is broken. CMake itself does this and this code does not properly work with it.
+        #IF (CMAKE_CL_64)
+            #IF ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "ARM64")
+                #SET_TARGET_PROPERTIES(freeglut_static PROPERTIES STATIC_LIBRARY_FLAGS "/machine:ARM64")
+            #ELSE()
+                #SET_TARGET_PROPERTIES(freeglut_static PROPERTIES STATIC_LIBRARY_FLAGS "/machine:x64")
+            #ENDIF()
+        #ENDIF()
     ENDIF()
 ELSE()
     # on UNIX we need to make sure:
